@@ -148,7 +148,7 @@ struct builtin {
 };
 
 /* these really are externs! Look in table.c for them */
-extern const struct builtin shbuiltins [], kshbuiltins [];
+extern const struct builtin shbuiltins [], kshbuiltins [], toybuiltins [];
 
 /* var spec values */
 #define	V_NONE			0

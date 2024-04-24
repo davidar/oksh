@@ -205,6 +205,10 @@ main(int argc, char *argv[])
 		builtin(shbuiltins[i].name, shbuiltins[i].func);
 	for (i = 0; kshbuiltins[i].name != NULL; i++)
 		builtin(kshbuiltins[i].name, kshbuiltins[i].func);
+	for (i = 0; toybuiltins[i].name != NULL; i++)
+		builtin(toybuiltins[i].name, toybuiltins[i].func);
+
+    toybox_init();
 
 	init_histvec();
 
