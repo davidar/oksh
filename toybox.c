@@ -336,12 +336,16 @@ int c_toybox(char *argv[])
   struct toy_list *tl = toy_find(*argv);
 
   sigjmp_buf rebound;
-  int offs = offsetof(struct toy_context, rebound);
-  char temp[offs];
+  // int offs = offsetof(struct toy_context, rebound);
+  // char temp[offs];
+  struct toy_context old_toys = toys;
 
   // This fakes lots of what toybox_main() does.
-  memcpy(&temp, &toys, offs);
-  memset(&toys, 0, offs);
+  // memcpy(&temp, &toys, offs);
+  // memset(&toys, 0, offs);
+  toys.optflags = 0;
+  toys.exitval = 0;
+  toys.wasroot = 0;
 
   if (!sigsetjmp(rebound, 1)) {
     toys.rebound = &rebound;
@@ -354,7 +358,8 @@ int c_toybox(char *argv[])
   clearerr(stdout);
   if (toys.optargs != toys.argv+1) free(toys.optargs);
   if (toys.old_umask) umask(toys.old_umask);
-  memcpy(&toys, &temp, offs);
+  // memcpy(&toys, &temp, offs);
+  toys = old_toys;
   return exitval;
 }
 

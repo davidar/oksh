@@ -786,7 +786,7 @@ bindir="$prefix/bin"
 mandir="$prefix/share/man"
 
 instprog="oksh"
-libs="-lm"
+libs=""
 curses=1
 instsh=0
 static=0
